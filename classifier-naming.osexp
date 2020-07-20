@@ -1,0 +1,736 @@
+---
+API: 2.1
+OpenSesame: 3.2.8
+Platform: nt
+---
+set width 1280
+set uniform_coordinates no
+set title "New experiment"
+set synth_backend droid
+set subject_parity even
+set subject_nr 0
+set start experiment
+set sound_sample_size -16
+set sound_freq 48000
+set sound_channels 2
+set sound_buf_size 1024
+set sampler_backend legacy
+set round_decimals 2
+set mouse_backend droid
+set keyboard_backend droid
+set height 800
+set fullscreen no
+set form_clicks no
+set foreground white
+set font_underline no
+set font_size 18
+set font_italic no
+set font_family mono
+set font_bold no
+set experiment_path "C:\\Users\\user\\Desktop"
+set disable_garbage_collection yes
+set description "Default description"
+set coordinates relative
+set compensation 0
+set canvas_backend droid
+set bidi no
+set background white
+
+define sequence _________sequence
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run _____inline_script always
+	run _____touch_response always
+	run logger always
+
+define sequence ________sequence
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run _____reset_feedback always
+	run _______loop always
+
+define loop _______loop
+	set source_file ""
+	set source table
+	set skip 0
+	set repeat 1
+	set order sequential
+	set item _________sequence
+	set description "Repeatedly runs another item"
+	set cycles 36
+	set continuous no
+	set column_order object
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 object tro
+	setcycle 1 object btf
+	setcycle 2 object bal
+	setcycle 3 object pea
+	setcycle 4 object umb
+	setcycle 5 object cha
+	setcycle 6 object bag
+	setcycle 7 object hor
+	setcycle 8 object but
+	setcycle 9 object bed
+	setcycle 10 object fis
+	setcycle 11 object tab
+	setcycle 12 object str
+	setcycle 13 object key
+	setcycle 14 object han
+	setcycle 15 object kni
+	setcycle 16 object app
+	setcycle 17 object sci
+	setcycle 18 object han
+	setcycle 19 object app
+	setcycle 20 object bed
+	setcycle 21 object key
+	setcycle 22 object umb
+	setcycle 23 object fis
+	setcycle 24 object hor
+	setcycle 25 object cha
+	setcycle 26 object bag
+	setcycle 27 object sci
+	setcycle 28 object pea
+	setcycle 29 object btf
+	setcycle 30 object but
+	setcycle 31 object bal
+	setcycle 32 object tro
+	setcycle 33 object tab
+	setcycle 34 object str
+	setcycle 35 object kni
+	run _________sequence
+
+define sequence _______sequence
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run ____inline_script always
+	run ____touch_response always
+	run logger always
+
+define loop ______loop
+	set source_file ""
+	set source table
+	set skip 0
+	set repeat 1
+	set order sequential
+	set item _______sequence
+	set description "Repeatedly runs another item"
+	set cycles 36
+	set continuous no
+	set column_order object
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 object fis
+	setcycle 1 object bag
+	setcycle 2 object han
+	setcycle 3 object tro
+	setcycle 4 object btf
+	setcycle 5 object kni
+	setcycle 6 object key
+	setcycle 7 object bal
+	setcycle 8 object cha
+	setcycle 9 object str
+	setcycle 10 object bed
+	setcycle 11 object app
+	setcycle 12 object umb
+	setcycle 13 object but
+	setcycle 14 object tab
+	setcycle 15 object sci
+	setcycle 16 object pea
+	setcycle 17 object hor
+	setcycle 18 object tro
+	setcycle 19 object btf
+	setcycle 20 object bal
+	setcycle 21 object pea
+	setcycle 22 object umb
+	setcycle 23 object cha
+	setcycle 24 object bag
+	setcycle 25 object hor
+	setcycle 26 object but
+	setcycle 27 object bed
+	setcycle 28 object fis
+	setcycle 29 object tab
+	setcycle 30 object str
+	setcycle 31 object key
+	setcycle 32 object han
+	setcycle 33 object kni
+	setcycle 34 object app
+	setcycle 35 object sci
+	run _______sequence
+
+define sequence ______sequence
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run ____reset_feedback always
+	run ______loop always
+
+define inline_script _____inline_script
+	set description "Executes Python code"
+	___run__
+	object=self.get('object')
+	
+	#define circle or square position
+	cir_pos=random.choice(["L","R"]) 
+	exp.set("cir_pos", cir_pos)
+	
+	#define number of objects in circle and square
+	cir_list=[2,3,4]
+	cir_num=random.choice(cir_list)
+	exp.set("cir_num", cir_num)
+	
+	squ_list=[x for x in cir_list  if x != cir_num]
+	squ_num=random.choice(squ_list)
+	exp.set("squ_num", squ_num)
+	
+	#define paths for objects and shapes
+	cir_pic = str(object)+str(cir_num)+".png"
+	squ_pic = str(object)+str(squ_num)+".png"
+	cir_pic_path=exp.get_file(cir_pic)
+	squ_pic_path=exp.get_file(squ_pic)
+	
+	#conditions for showing objects and shapes
+	if cir_pos == "L":
+	  shape_canvas.image(cir_path, x=340, scale=0.43) 
+	  shape_canvas.image(cir_pic_path, x=340, scale=0.43)
+	  shape_canvas.image(squ_path, x=960, scale=0.40)
+	  shape_canvas.image(squ_pic_path, x=960, scale=0.40)
+	else:
+	  shape_canvas.image(cir_path, x=960, scale=0.43) 
+	  shape_canvas.image(cir_pic_path, x=960, scale=0.43) 
+	  shape_canvas.image(squ_path, x=340, scale=0.40)
+	  shape_canvas.image(squ_pic_path, x=340, scale=0.40)
+	
+	shape_canvas.show()
+	self.sleep(1500)
+	__end__
+	___prepare__
+	from openexp.canvas import canvas
+	import random
+	
+	
+	shape_canvas = canvas(exp, bgcolor="white") # Create canvas
+	cir_path = exp.get_file('cir.png')
+	squ_path=exp.get_file('squ.png')
+	__end__
+
+define loop _____loop
+	set source_file ""
+	set source table
+	set repeat 1
+	set order random
+	set item _____sequence
+	set description "Repeatedly runs another item"
+	set cycles 1
+	set continuous no
+	set column_order object
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 object shi
+	run _____sequence
+
+define reset_feedback _____reset_feedback
+	set description "Resets the feedback variables, such as 'avg_rt' and 'acc'"
+
+define sequence _____sequence
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run __inline_script always
+	run touch_response always
+	run logger always
+
+define touch_response _____touch_response
+	set timeout infinite
+	set show_cursor yes
+	set linked_sketchpad ""
+	set flush yes
+	set event_type mouseclick
+	set duration mouseclick
+	set description "A grid-based response item, convenient for touch screens"
+	set _nrow 1
+	set _ncol 2
+
+define inline_script ____inline_script
+	set description "Executes Python code"
+	___run__
+	object=self.get('object')
+	
+	#define circle or square position
+	cir_pos=random.choice(["L","R"]) 
+	exp.set("cir_pos", cir_pos)
+	
+	#define number of objects in circle and square
+	cir_list=[2,3,4]
+	cir_num=random.choice(cir_list)
+	exp.set("cir_num", cir_num)
+	
+	squ_list=[x for x in cir_list  if x != cir_num]
+	squ_num=random.choice(squ_list)
+	exp.set("squ_num", squ_num)
+	
+	#define paths for objects and shapes
+	cir_pic = str(object)+str(cir_num)+".png"
+	squ_pic = str(object)+str(squ_num)+".png"
+	cir_pic_path=exp.get_file(cir_pic)
+	squ_pic_path=exp.get_file(squ_pic)
+	
+	#conditions for showing objects and shapes
+	if cir_pos == "L":
+	  shape_canvas.image(cir_path, x=340, scale=0.43) 
+	  shape_canvas.image(cir_pic_path, x=340, scale=0.43)
+	  shape_canvas.image(squ_path, x=960, scale=0.40)
+	  shape_canvas.image(squ_pic_path, x=960, scale=0.40)
+	else:
+	  shape_canvas.image(cir_path, x=960, scale=0.43) 
+	  shape_canvas.image(cir_pic_path, x=960, scale=0.43) 
+	  shape_canvas.image(squ_path, x=340, scale=0.40)
+	  shape_canvas.image(squ_pic_path, x=340, scale=0.40)
+	
+	shape_canvas.show()
+	self.sleep(1500)
+	__end__
+	___prepare__
+	from openexp.canvas import canvas
+	import random
+	
+	
+	shape_canvas = canvas(exp, bgcolor="white") # Create canvas
+	cir_path = exp.get_file('cir.png')
+	squ_path=exp.get_file('squ.png')
+	__end__
+
+define reset_feedback ____reset_feedback
+	set description "Resets the feedback variables, such as 'avg_rt' and 'acc'"
+
+define sequence ____sequence
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run __reset_feedback always
+	run _____loop always
+
+define touch_response ____touch_response
+	set timeout infinite
+	set show_cursor yes
+	set linked_sketchpad ""
+	set flush yes
+	set event_type mouseclick
+	set duration mouseclick
+	set description "A grid-based response item, convenient for touch screens"
+	set _nrow 1
+	set _ncol 2
+
+define inline_script ___inline_script
+	set description "Executes Python code"
+	___run__
+	object=self.get('object')
+	
+	#define circle or square position
+	cir_pos=random.choice(["L","R"]) 
+	exp.set("cir_pos", cir_pos)
+	
+	#define number of objects in circle and square
+	cir_list=[2,3,4]
+	cir_num=random.choice(cir_list)
+	exp.set("cir_num", cir_num)
+	
+	squ_list=[x for x in cir_list  if x != cir_num]
+	squ_num=random.choice(squ_list)
+	exp.set("squ_num", squ_num)
+	
+	#define paths for objects and shapes
+	cir_pic = str(object)+str(cir_num)+".png"
+	squ_pic = str(object)+str(squ_num)+".png"
+	cir_pic_path=exp.get_file(cir_pic)
+	squ_pic_path=exp.get_file(squ_pic)
+	
+	#conditions for showing objects and shapes
+	if cir_pos == "L":
+	  shape_canvas.image(cir_path, x=340, scale=0.43) 
+	  shape_canvas.image(cir_pic_path, x=340, scale=0.43)
+	  shape_canvas.image(squ_path, x=960, scale=0.40)
+	  shape_canvas.image(squ_pic_path, x=960, scale=0.40)
+	else:
+	  shape_canvas.image(cir_path, x=960, scale=0.43) 
+	  shape_canvas.image(cir_pic_path, x=960, scale=0.43) 
+	  shape_canvas.image(squ_path, x=340, scale=0.40)
+	  shape_canvas.image(squ_pic_path, x=340, scale=0.40)
+	
+	shape_canvas.show()
+	self.sleep(1500)
+	__end__
+	___prepare__
+	from openexp.canvas import canvas
+	import random
+	
+	
+	shape_canvas = canvas(exp, bgcolor="white") # Create canvas
+	cir_path = exp.get_file('cir.png')
+	squ_path=exp.get_file('squ.png')
+	__end__
+
+define loop ___loop
+	set source_file ""
+	set source table
+	set skip 0
+	set repeat 1
+	set order sequential
+	set item ___sequence
+	set description "Repeatedly runs another item"
+	set cycles 36
+	set continuous no
+	set column_order object
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 object han
+	setcycle 1 object app
+	setcycle 2 object bed
+	setcycle 3 object key
+	setcycle 4 object umb
+	setcycle 5 object fis
+	setcycle 6 object hor
+	setcycle 7 object cha
+	setcycle 8 object bag
+	setcycle 9 object sci
+	setcycle 10 object pea
+	setcycle 11 object btf
+	setcycle 12 object but
+	setcycle 13 object bal
+	setcycle 14 object tro
+	setcycle 15 object tab
+	setcycle 16 object str
+	setcycle 17 object kni
+	setcycle 18 object hor
+	setcycle 19 object kni
+	setcycle 20 object app
+	setcycle 21 object bag
+	setcycle 22 object btf
+	setcycle 23 object bed
+	setcycle 24 object umb
+	setcycle 25 object han
+	setcycle 26 object key
+	setcycle 27 object pea
+	setcycle 28 object bal
+	setcycle 29 object str
+	setcycle 30 object fis
+	setcycle 31 object cha
+	setcycle 32 object sci
+	setcycle 33 object tab
+	setcycle 34 object tro
+	setcycle 35 object but
+	run ___sequence
+
+define reset_feedback ___reset_feedback
+	set description "Resets the feedback variables, such as 'avg_rt' and 'acc'"
+
+define sequence ___sequence
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run _inline_script always
+	run _touch_response always
+	run logger always
+
+define touch_response ___touch_response
+	set timeout infinite
+	set show_cursor yes
+	set linked_sketchpad ""
+	set flush yes
+	set event_type mouseclick
+	set duration mouseclick
+	set description "A grid-based response item, convenient for touch screens"
+	set _nrow 1
+	set _ncol 2
+
+define loop __block2
+	set source_file ""
+	set source table
+	set repeat 1
+	set order random
+	set item ""
+	set description "Repeatedly runs another item"
+	set cycles 1
+	set continuous no
+	set column_order ""
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 empty_column ""
+	run block2_seq
+
+define inline_script __inline_script
+	set description "Executes Python code"
+	___run__
+	
+	#define circle or square position
+	cir_pos=random.choice(["L","R"]) 
+	exp.set("cir_pos", cir_pos)
+	
+	#define number of objects in circle and square
+	cir_list=[2,3,4]
+	cir_num=random.choice(cir_list)
+	exp.set("cir_num", cir_num)
+	
+	squ_list=[x for x in cir_list  if x != cir_num]
+	squ_num=random.choice(squ_list)
+	exp.set("squ_num", squ_num)
+	
+	#define paths for objects and shapes
+	cir_pic = "shi"+str(cir_num)+".png"
+	squ_pic = "shi"+str(squ_num)+".png"
+	cir_pic_path=exp.get_file(cir_pic)
+	squ_pic_path=exp.get_file(squ_pic)
+	
+	#conditions for showing objects and shapes
+	if cir_pos == "L":
+	  shape_canvas.image(cir_path, x=340, scale=0.43) 
+	  shape_canvas.image(cir_pic_path, x=340, scale=0.43)
+	  shape_canvas.image(squ_path, x=960, scale=0.40)
+	  shape_canvas.image(squ_pic_path, x=960, scale=0.40)
+	else:
+	  shape_canvas.image(cir_path, x=960, scale=0.43) 
+	  shape_canvas.image(cir_pic_path, x=960, scale=0.43) 
+	  shape_canvas.image(squ_path, x=340, scale=0.40)
+	  shape_canvas.image(squ_pic_path, x=340, scale=0.40)
+	
+	shape_canvas.show()
+	self.sleep(1500)
+	__end__
+	___prepare__
+	from openexp.canvas import canvas
+	import random
+	
+	
+	shape_canvas = canvas(exp, bgcolor="white") # Create canvas
+	cir_path = exp.get_file('cir.png')
+	squ_path=exp.get_file('squ.png')
+	__end__
+
+define loop __loop
+	set source_file ""
+	set source table
+	set skip 0
+	set repeat 1
+	set order sequential
+	set item __sequence
+	set description "Repeatedly runs another item"
+	set cycles 36
+	set continuous no
+	set column_order object
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 object hor
+	setcycle 1 object kni
+	setcycle 2 object app
+	setcycle 3 object bag
+	setcycle 4 object btf
+	setcycle 5 object bed
+	setcycle 6 object umb
+	setcycle 7 object han
+	setcycle 8 object key
+	setcycle 9 object pea
+	setcycle 10 object bal
+	setcycle 11 object str
+	setcycle 12 object fis
+	setcycle 13 object cha
+	setcycle 14 object sci
+	setcycle 15 object tab
+	setcycle 16 object tro
+	setcycle 17 object but
+	setcycle 18 object fis
+	setcycle 19 object bag
+	setcycle 20 object han
+	setcycle 21 object tro
+	setcycle 22 object btf
+	setcycle 23 object kni
+	setcycle 24 object key
+	setcycle 25 object bal
+	setcycle 26 object cha
+	setcycle 27 object str
+	setcycle 28 object bed
+	setcycle 29 object app
+	setcycle 30 object umb
+	setcycle 31 object but
+	setcycle 32 object tab
+	setcycle 33 object sci
+	setcycle 34 object pea
+	setcycle 35 object hor
+	run __sequence
+
+define reset_feedback __reset_feedback
+	set description "Resets the feedback variables, such as 'avg_rt' and 'acc'"
+
+define sequence __sequence
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run ___inline_script always
+	run ___touch_response always
+	run logger always
+
+define loop _block3
+	set source_file ""
+	set source table
+	set repeat 1
+	set order random
+	set item ______sequence
+	set description "Repeatedly runs another item"
+	set cycles 1
+	set continuous no
+	set column_order ""
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 empty_column ""
+	run ______sequence
+
+define loop _block4
+	set source_file ""
+	set source table
+	set repeat 1
+	set order random
+	set item ________sequence
+	set description "Repeatedly runs another item"
+	set cycles 1
+	set continuous no
+	set column_order ""
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 empty_column ""
+	run ________sequence
+
+define inline_script _inline_script
+	set description "Executes Python code"
+	___run__
+	object=self.get('object')
+	
+	#define circle or square position
+	cir_pos=random.choice(["L","R"]) 
+	exp.set("cir_pos", cir_pos)
+	
+	#define number of objects in circle and square
+	cir_list=[2,3,4]
+	cir_num=random.choice(cir_list)
+	exp.set("cir_num", cir_num)
+	
+	squ_list=[x for x in cir_list  if x != cir_num]
+	squ_num=random.choice(squ_list)
+	exp.set("squ_num", squ_num)
+	
+	#define paths for objects and shapes
+	cir_pic = str(object)+str(cir_num)+".png"
+	squ_pic = str(object)+str(squ_num)+".png"
+	cir_pic_path=exp.get_file(cir_pic)
+	squ_pic_path=exp.get_file(squ_pic)
+	
+	#conditions for showing objects and shapes
+	if cir_pos == "L":
+	  shape_canvas.image(cir_path, x=340, scale=0.43) 
+	  shape_canvas.image(cir_pic_path, x=340, scale=0.43)
+	  shape_canvas.image(squ_path, x=960, scale=0.40)
+	  shape_canvas.image(squ_pic_path, x=960, scale=0.40)
+	else:
+	  shape_canvas.image(cir_path, x=960, scale=0.43) 
+	  shape_canvas.image(cir_pic_path, x=960, scale=0.43) 
+	  shape_canvas.image(squ_path, x=340, scale=0.40)
+	  shape_canvas.image(squ_pic_path, x=340, scale=0.40)
+	
+	shape_canvas.show()
+	self.sleep(1500)
+	__end__
+	___prepare__
+	from openexp.canvas import canvas
+	import random
+	
+	
+	shape_canvas = canvas(exp, bgcolor="white") # Create canvas
+	cir_path = exp.get_file('cir.png')
+	squ_path=exp.get_file('squ.png')
+	__end__
+
+define reset_feedback _reset_feedback
+	set description "Resets the feedback variables, such as 'avg_rt' and 'acc'"
+
+define touch_response _touch_response
+	set timeout infinite
+	set show_cursor yes
+	set linked_sketchpad ""
+	set flush yes
+	set event_type mouseclick
+	set duration mouseclick
+	set description "A grid-based response item, convenient for touch screens"
+	set _nrow 1
+	set _ncol 2
+
+define loop block1
+	set source_file ""
+	set source table
+	set repeat 1
+	set order random
+	set item block1_sequence
+	set description "Repeatedly runs another item"
+	set cycles 1
+	set continuous no
+	set column_order ""
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 empty_column ""
+	run block1_sequence
+
+define sequence block1_sequence
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run _reset_feedback always
+	run ___loop always
+
+define sequence block2_seq
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run ___reset_feedback always
+	run __loop always
+
+define sketchpad endofexp
+	set reset_variables no
+	set duration keypress
+	set description "Displays stimuli"
+
+define sketchpad endoftraining
+	set reset_variables no
+	set duration mouseclick
+	set description "Displays stimuli"
+
+define sequence experiment
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run training always
+	run endoftraining always
+	run block1 "[subject_nr]%4 = 1"
+	run __block2 "[subject_nr]%4 = 2"
+	run _block3 "[subject_nr]%4 = 3"
+	run _block4 "[subject_nr]%4 = 0"
+	run endofexp always
+
+define logger logger
+	set description "Logs experimental data"
+	set auto_log yes
+
+define touch_response touch_response
+	set timeout infinite
+	set show_cursor yes
+	set linked_sketchpad ""
+	set flush yes
+	set event_type mouseclick
+	set duration mouseclick
+	set description "A grid-based response item, convenient for touch screens"
+	set _nrow 1
+	set _ncol 2
+
+define loop training
+	set source_file ""
+	set source table
+	set repeat 1
+	set order random
+	set item ____sequence
+	set description "Repeatedly runs another item"
+	set cycles 1
+	set continuous no
+	set column_order ""
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 empty_column ""
+	run ____sequence
+
